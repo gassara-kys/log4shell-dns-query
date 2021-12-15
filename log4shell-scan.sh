@@ -17,7 +17,7 @@ function scan () {
 while read fqdn
 do
   echo "$fqdn"
-  DNS_QUERY=log4shell.`echo "$fqdn" | sed -e "s|^https://||g" | sed -e "s|^http://||g" | sed -e "s|:.*$||g" | sed -e "s|/.*$||g"`.$DOMAIN
+  DNS_QUERY=log4shell.`date +%s`.`echo "$fqdn" | sed -e "s|^https://||g" | sed -e "s|^http://||g" | sed -e "s|:.*$||g" | sed -e "s|/.*$||g"`.$DOMAIN
 
   # call scan
   if [[ $fqdn == "http"* ]]
