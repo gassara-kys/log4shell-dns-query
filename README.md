@@ -12,7 +12,7 @@ This tool is useful for checking a large number of websites with logs of domains
 2. Check CWL (@US East (N. Virginia) Region.)
    - you can check log with dig command.
 
-4. Edit fqdn.txt
+4. Set URL or FQDN list in fqdn.txt
 ```bash
 $ vi fqdn.txt
 
@@ -22,7 +22,7 @@ http://zzzz
 ...
 ```
 
-### Scan
+### Scan(with DNS query)
 
 1. Exec script
 ```bash
@@ -35,6 +35,14 @@ $ DOMAIN=your-domain.com ./log4shell-scan.sh
 filter ispresent(queryName) and queryName like /^log4shell./
 | fields queryName
 ```
+
+### Scan(with LDAP Server)
+1. Exec script
+```bash
+$ DOMAIN=your-ldap-server ./log4shell-scan-ldap.sh
+```
+
+2. Check log
 
 ### vulnerable-app example 
 
